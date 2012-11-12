@@ -1,0 +1,5 @@
+My own résumé in moderncv, with a modified version of the banking style
+and an implementation of a subset of moderncv for HeVeA, a LaTeX-to-HTML
+converter. moderncv.hva only implements one style and color, a blue splashy
+style similar to classic and suitable for the web, and also an optional
+plaintext mode producing markdown output.

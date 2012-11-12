@@ -1,0 +1,4 @@
+%% start of file `plaintext.hva'.
+%% Copyright 2012 Andrew Mahone (andrew.mahone@gmail.com).
+%% include in command line before moderncv document to use plaintext-friendly features in moderncv.hva
+\def\plaintext{true}
