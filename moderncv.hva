@@ -7,6 +7,10 @@
 %
 %% define \plaintext to use plaintext variants
 %% markdown-compatible section headers
+\newcounter{txtsection}
+\newcounter{txtsubsection}
+\renewcommand\thetxtsection{}%
+\renewcommand\thetxtsubsection{}%
 \@makesection
   {\txtsection}{0}{txtsection}
   {\@forcenewline\@open{head}{=}}
@@ -17,13 +21,18 @@
   {\@forcenewline\@open{head}{-}~}
   {\thetxtsubsection}{\quad}
   {\@forcenewline\@close{head}}
+\newcommand{\odiv}[1]{\@ifundefined{plaintext}{\@open{div}{#1}}{}}
+\newcommand{\cdiv}{\@ifundefined{plaintext}{\@close{div}}{}}
+\newcommand{\fdiv}{\@ifundefined{plaintext}{\@force{div}}{}}
+\newcommand{\ospan}[1]{\@ifundefined{plaintext}{\@open{span}{#1}}{}}
+\newcommand{\cspan}{\@ifundefined{plaintext}{\@close{span}}{}}
 \let\origsection\section
 \let\origsubsection\subsection
 \renewcommand{\section}[1]{\@ifundefined{plaintext}{\origsection{#1}}{\txtsection{#1}}}
 \renewcommand{\subsection}[1]{\@ifundefined{plaintext}{\origsubsection{#1}}{\txtsubsection{#1}}}
 %% numberless section headers, with decorative divs in html
-\renewcommand{\thesection}{\@ifundefined{plaintext}{\@open{div}{class="lbox2"}\@force{div}}{}}
-\renewcommand{\thesubsection}{\@ifundefined{plaintext}{\@open{div}{class="lbox3"}\@force{div}}{}}
+\renewcommand{\thesection}{\odiv{class="lbox2"}\fdiv}
+\renewcommand{\thesubsection}{\odiv{class="lbox3"}\fdiv}
 \usepackage{hevea}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
@@ -44,31 +53,31 @@
 \newcommand*{\email}[1]{\def\@email{#1}}
 \newcommand*{\homepage}[1]{\def\@homepage{#1}}
 %% plaintext versions simply output the address (not URI)
-\renewcommand*{\httplink}[2][]{%
+\newcommand*{\httplink}[2][]{%
   \@ifundefined{plaintext}%
     {\ifthenelse{\equal{#1}{}}%
       {\href{http://#2}{#2}}%
       {\href{http://#2}{#1}}}%
     {#2}}%
-\renewcommand*{\emaillink}[2][]{%
+\newcommand*{\emaillink}[2][]{%
   \@ifundefined{plaintext}%
     {\ifthenelse{\equal{#1}{}}%
       {\href{mailto:#2}{#2}}%
       {\href{mailto:#2}{#1}}}%
     {#2}}%
 %% plaintext variants use a simple item: label
-\renewcommand{\mobilesymbol}{%
+\newcommand{\mobilesymbol}{%
   \@ifundefined{plaintext}%
     {\@print@u{9990}~}%
     {mobile:~}}
-\renewcommand{\emailsymbol}{%
+\newcommand{\emailsymbol}{%
   \@ifundefined{plaintext}%
     {\@print@u{9993}~}%
     {email:~}}
 %% plaintext "LaTeX", HTML is styled to resemble LaTeX logo
 \renewcommand{\LaTeX}{%
   \@ifundefined{plaintext}%
-    {\@open{span}{class="latex"}L\@open{sup}{}A\@close{sup}T\@open{sub}{}E\@close{sub}\@close{span}X}%
+    {\ospan{class="latex"}L\@open{sup}{}A\@close{sup}T\@open{sub}{}E\@close{sub}\cspan{X}}%
     {LaTeX}}
 %% uncomment to use marvosym mobile and letter symbols
 %\RequirePackage{marvosym}
@@ -76,13 +85,13 @@
 %\renewcommand{\mobilesymbol}{\begin{toimage}\Mobilefone\end{toimage}{\imageflush}}
 %% mimics the casual-style moderncv entry header
 \newcommand*{\cventry}[7][.25em]{%
-    \@ifundefined{plaintext}{\@open{div}{class=cventry}}{\\}%
+    \@ifundefined{plaintext}{\odiv{class="cventry"}}{\\}%
     {\bfseries#2~~#3}%
     \ifthenelse{\equal{#4}{}}{}{, {\slshape#4}}%
     \ifthenelse{\equal{#5}{}}{}{, #5}%
     \ifthenelse{\equal{#6}{}}{}{, #6}%
     \@ifundefined{plaintext}%
-      {\ifthenelse{\equal{#7}{}}{}{\\#7}\@close{div}}%
+      {\ifthenelse{\equal{#7}{}}{}{\\#7}\cdiv}%
       {\ifthenelse{\equal{#7}{}}{}{\\#7\par}}}%
 % commands
 %% one header item per line in plaintext
@@ -103,7 +112,7 @@
     #2%
   \fi%
 }
-\renewcommand*{\makecvtitle}{%
+\newcommand*{\makecvtitle}{%
   {%
     \@ifundefined{plaintext}{}{\@open{head}{}}%
     % name (title is not visible)
@@ -120,8 +129,8 @@
     }\\}% need to force a \par after this to avoid weird spacing bug at the first section if no blank line is left after \maketitle
 
 % fonts
-\renewcommand*{\namefont}{\Huge\bfseries\upshape}
-\renewcommand*{\addressfont}{\small\mdseries\upshape}
+\newcommand*{\namefont}{\Huge\bfseries\upshape}
+\newcommand*{\addressfont}{\small\mdseries\upshape}
 
 % lengths
 \newlength{\quotewidth}
