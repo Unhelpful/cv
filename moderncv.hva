@@ -142,7 +142,7 @@
 \newstyle{.tex sub, .latex sub}{vertical-align: -0.5ex;margin-left: -0.1667em;margin-right: -0.125em;}
 \newstyle{.tex, .latex, .tex sub, .latex sub}{font-size: 1em;}
 \newstyle{.latex sup}{font-size: 0.85em;vertical-align: 0.15em;margin-left: -0.36em;margin-right: -0.15em;}
-\newstyle{ul}{list-style:none;padding-left:1.2em;}
+\newstyle{ul}{list-style:none;padding-left:1.2em;margin-top:1em;margin-bottom:1em;}
 \newstyle{li}{padding-top:0pt;padding-bottom:0pt;margin-top:0pt;margin-bottom:0pt;line-height:1em;}
 \newstyle{li:before}{content:"\bullet";display:block;position:relative;max-width:0px;max-height:0px;left:-.8em;top:-0em;color:\@getstylecolor{color1};}
 \newstyle{li li:before}{content:"\cdot\cdot\cdot";display:block;position:relative;max-width:0px;max-height:0px;left:-1.2em;top:-0em;color:\@getstylecolor{color1};}
@@ -150,4 +150,4 @@
 \newstyle{h3}{position:relative;left:-48pt;color:\@getstylecolor{color3};}
 \newstyle{.lbox2}{min-width:64pt;min-height:4pt;background:\@getstylecolor{color1};display:inline-block;position:relative;left:-2pt;border-left:2pt solid \@getstylecolor{color1};border-top-left-radius:2pt;border-bottom-left-radius:2pt;}
 \newstyle{.lbox3}{min-width:48pt;min-height:4pt;background:\@getstylecolor{color3};display:inline-block;position:relative;left:-2pt;border-left:2pt solid \@getstylecolor{color3};border-top-left-radius:2pt;border-bottom-left-radius:2pt;}
-\newstyle{.cventry}{margin-top:1.25em;margin-bottom:1.25em};
+\newstyle{.cventry}{margin-top:1.25em;margin-bottom:.5em};

@@ -19,6 +19,7 @@
 %-------------------------------------------------------------------------------
 \RequirePackage{moderncvstylebanking}
 \RequirePackage{xhfill}
+\RequirePackage{needspace}
 
 %-------------------------------------------------------------------------------
 %                overall style definition
@@ -140,14 +141,16 @@
   \strut\subsectionstyle{#1}{\color{color1}{\subsectionfill}}%
   \par\nobreak\addvspace{0.5ex}\@afterheading}
 
-\renewcommand*{\cventry}[7][1.25em]{
-	\begin{samepage}\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}%
+\renewcommand*{\cventry}[7][0.5em]{
+	\needspace{4\baselineskip}
+	\addvspace{#1}
+	\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}%
 	  {\bfseries #4} & {\bfseries #5} \\%
 	  {\itshape #3\ifthenelse{\equal{#6}{}}{}{, #6}} & {\itshape #2}\\%
   \end{tabular*}%
   \ifx&#7&%
     \else{\\\vbox{\small#7}}\fi%
-    \par\end{samepage}\addvspace{#1}}
+    \par}
 \endinput
 
 
