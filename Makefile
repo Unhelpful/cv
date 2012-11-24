@@ -9,8 +9,8 @@ cv.pdf: cv.tex moderncvstylebankingmod.sty
 cv.html: cv.tex moderncv.hva
 	hevea -O -fix $<
 
-cv.txt: cv.tex plaintext.hva moderncv.hva
-	hevea -O -fix -text -w 9999 -o cv.tmp.txt plaintext.hva $<
+cv.txt: cv.tex moderncv.hva
+	hevea -O -fix -text -w 9999 -o cv.tmp.txt $<
 	perl -0777 -p -e 's-(\s*\n)+\s*\n-\n\n-gms' cv.tmp.txt >$@
 
 upload: cv.pdf cv.html cv.txt

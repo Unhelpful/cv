@@ -21,18 +21,18 @@
   {\@forcenewline\@open{head}{-}~}
   {\thetxtsubsection}{\quad}
   {\@forcenewline\@close{head}}
-\newcommand{\odiv}[1]{\@ifundefined{plaintext}{\@open{div}{#1}}{}}
-\newcommand{\cdiv}{\@ifundefined{plaintext}{\@close{div}}{}}
-\newcommand{\fdiv}{\@ifundefined{plaintext}{\@force{div}}{}}
-\newcommand{\ospan}[1]{\@ifundefined{plaintext}{\@open{span}{#1}}{}}
-\newcommand{\cspan}{\@ifundefined{plaintext}{\@close{span}}{}}
+\newcommand{\odiv}[1]{\ifhtml\@open{div}{#1}\fi}
+\newcommand{\cdiv}{\ifhtml\@close{div}\fi}
+\newcommand{\fdiv}{\ifhtml\@force{div}\fi}
+\newcommand{\ospan}[1]{\ifhtml\@open{span}{#1}\fi}
+\newcommand{\cspan}{\ifhtml\@close{span}\fi}
 \let\origsection\section
 \let\origsubsection\subsection
-\renewcommand{\section}[1]{\@ifundefined{plaintext}{\origsection{#1}}{\txtsection{#1}}}
-\renewcommand{\subsection}[1]{\@ifundefined{plaintext}{\origsubsection{#1}}{\txtsubsection{#1}}}
+\renewcommand{\section}[1]{\ifhtml\origsection{#1}\else\txtsection{#1}\fi}
+\renewcommand{\subsection}[1]{\ifhtml\origsubsection{#1}\else\txtsubsection{#1}\fi}
 %% numberless section headers, with decorative divs in html
-\renewcommand{\thesection}{\odiv{class="lbox2"}\fdiv}
-\renewcommand{\thesubsection}{\odiv{class="lbox3"}\fdiv}
+\renewcommand{\thesection}{\ifhtml\odiv{class="lbox2"}\fdiv\fi}
+\renewcommand{\thesubsection}{\ifhtml\odiv{class="lbox3"}\fdiv\fi}
 \usepackage{hevea}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
@@ -54,51 +54,76 @@
 \newcommand*{\homepage}[1]{\def\@homepage{#1}}
 %% plaintext versions simply output the address (not URI)
 \newcommand*{\httplink}[2][]{%
-  \@ifundefined{plaintext}%
-    {\ifthenelse{\equal{#1}{}}%
+  \ifhtml%
+    \ifthenelse{\equal{#1}{}}%
       {\href{http://#2}{#2}}%
-      {\href{http://#2}{#1}}}%
-    {#2}}%
+      {\href{http://#2}{#1}}%
+  \else%
+    #2%
+  \fi%
+}%
 \newcommand*{\emaillink}[2][]{%
-  \@ifundefined{plaintext}%
-    {\ifthenelse{\equal{#1}{}}%
+  \ifhtml%
+    \ifthenelse{\equal{#1}{}}%
       {\href{mailto:#2}{#2}}%
-      {\href{mailto:#2}{#1}}}%
-    {#2}}%
+      {\href{mailto:#2}{#1}}%
+  \else%
+    #2%
+  \fi%
+}%
 %% plaintext variants use a simple item: label
 \newcommand{\mobilesymbol}{%
-  \@ifundefined{plaintext}%
-    {\@print@u{9990}~}%
-    {mobile:~}}
+  \ifhtml%
+    \@print@u{9990}~%
+  \else%
+    mobile:~%
+  \fi%
+}%
 \newcommand{\emailsymbol}{%
-  \@ifundefined{plaintext}%
-    {\@print@u{9993}~}%
-    {email:~}}
+  \ifhtml%
+    \@print@u{9993}~%
+  \else%
+    email:~%
+  \fi%
+}%
 %% plaintext "LaTeX", HTML is styled to resemble LaTeX logo
 \renewcommand{\LaTeX}{%
-  \@ifundefined{plaintext}%
-    {\ospan{class="latex"}L\@open{sup}{}A\@close{sup}T\@open{sub}{}E\@close{sub}\cspan{X}}%
-    {LaTeX}}
+  \ifhtml%
+    \ospan{class="latex"}L\@open{sup}{}A\@close{sup}T\@open{sub}{}E\@close{sub}\cspan{X}%
+  \else%
+    LaTeX%
+  \fi%
+}%
 %% uncomment to use marvosym mobile and letter symbols
 %\RequirePackage{marvosym}
 %\renewcommand{\emailsymbol}{\begin{toimage}\Letter\end{toimage}{\imageflush}}
 %\renewcommand{\mobilesymbol}{\begin{toimage}\Mobilefone\end{toimage}{\imageflush}}
 %% mimics the casual-style moderncv entry header
 \newcommand*{\cventry}[7][.25em]{%
-    \@ifundefined{plaintext}{\odiv{class="cventry"}}{\\}%
-    {\bfseries#2~~#3}%
-    \ifthenelse{\equal{#4}{}}{}{, {\slshape#4}}%
-    \ifthenelse{\equal{#5}{}}{}{, #5}%
-    \ifthenelse{\equal{#6}{}}{}{, #6}%
-    \@ifundefined{plaintext}%
-      {\ifthenelse{\equal{#7}{}}{}{\\#7}\cdiv}%
-      {\ifthenelse{\equal{#7}{}}{}{\\#7\par}}}%
+  \ifhtml%
+    \odiv{class="cventry"}%
+  \else%
+    \\%
+  \fi%
+  {\bfseries#2~~#3}%
+  \ifthenelse{\equal{#4}{}}{}{, {\slshape#4}}%
+  \ifthenelse{\equal{#5}{}}{}{, #5}%
+  \ifthenelse{\equal{#6}{}}{}{, #6}%
+  \ifhtml%
+    \ifthenelse{\equal{#7}{}}{}{\\#7}\cdiv%
+  \else%
+    \ifthenelse{\equal{#7}{}}{}{\\#7\par}%
+  \fi%
+}%
 % commands
 %% one header item per line in plaintext
 \newcommand*{\maketitlesymbol}{%
-  \@ifundefined{plaintext}%
-    {~~~\textbullet~~~}%
-    {\\}}% \textbullet forces the use of the CMSY font, even when latin modern fonts are used :(
+  \ifhtml%
+    ~~~\textbullet~~~%
+  \else%
+    \\%
+  \fi%
+}% \textbullet forces the use of the CMSY font, even when latin modern fonts are used :(
 %   internal command to add an element to the header
 %   it collects the elements in a temporary box, and checks when to flush the box
 \newlength{\maketitlewidth}%
@@ -114,7 +139,7 @@
 }
 \newcommand*{\makecvtitle}{%
   {%
-    \@ifundefined{plaintext}{}{\@open{head}{}}%
+    \ifhtml\else\@open{head}{}\fi%
     % name (title is not visible)
     {\namefont\@firstname~\@familyname}\\%
     % detailed information
@@ -125,7 +150,7 @@
     \ifthenelse{\equal{}{\@email}}{}{\addtomaketitle{\emailsymbol\emaillink{\@email}}}%
     \ifthenelse{\equal{}{\@homepage}}{}{\addtomaketitle{\homepagesymbol\httplink{\@homepage}}}%
     \ifthenelse{\equal{}{\@extrainfo}}{}{\addtomaketitle{\@extrainfo}}%
-    \@ifundefined{plaintext}{}{\@close{head}}%
+    \ifhtml\else\@close{head}\fi%
     }\\}% need to force a \par after this to avoid weird spacing bug at the first section if no blank line is left after \maketitle
 
 % fonts
