@@ -26,13 +26,14 @@
 \newcommand{\fdiv}{\ifhtml\@force{div}\fi}
 \newcommand{\ospan}[1]{\ifhtml\@open{span}{#1}\fi}
 \newcommand{\cspan}{\ifhtml\@close{span}\fi}
+\newcommand{\fspan}{\ifhtml\@force{span}\fi}
 \let\origsection\section
 \let\origsubsection\subsection
 \renewcommand{\section}[1]{\ifhtml\origsection{#1}\else\txtsection{#1}\fi}
 \renewcommand{\subsection}[1]{\ifhtml\origsubsection{#1}\else\txtsubsection{#1}\fi}
 %% numberless section headers, with decorative divs in html
-\renewcommand{\thesection}{\ifhtml\odiv{class="lbox2"}\fdiv\fi}
-\renewcommand{\thesubsection}{\ifhtml\odiv{class="lbox3"}\fdiv\fi}
+\renewcommand{\thesection}{\ospan{class="lbox2"}\fspan}
+\renewcommand{\thesubsection}{\ospan{class="lbox3"}\fspan}
 \usepackage{hevea}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
@@ -170,7 +171,7 @@
 \newstyle{ul}{list-style:none;padding-left:1.2em;margin-top:1em;margin-bottom:1em;}
 \newstyle{li}{padding-top:0pt;padding-bottom:0pt;margin-top:0pt;margin-bottom:0pt;line-height:1em;}
 \newstyle{li:before}{content:"\bullet";display:block;position:relative;max-width:0px;max-height:0px;left:-.8em;top:-0em;color:\@getstylecolor{color1};}
-\newstyle{li li:before}{content:"\cdot\cdot\cdot";display:block;position:relative;max-width:0px;max-height:0px;left:-1.2em;top:-0em;color:\@getstylecolor{color1};}
+\newstyle{li li:before}{content:"\cdot\cdot\cdot";display:block;position:relative;max-width:0px;max-height:0px;left:-1em;top:-0em;color:\@getstylecolor{color1};}
 \newstyle{h2}{position:relative;left:-64pt;color:\@getstylecolor{color1};}
 \newstyle{h3}{position:relative;left:-48pt;color:\@getstylecolor{color3};}
 \newstyle{.lbox2}{min-width:64pt;min-height:4pt;background:\@getstylecolor{color1};display:inline-block;position:relative;left:-2pt;border-left:2pt solid \@getstylecolor{color1};border-top-left-radius:2pt;border-bottom-left-radius:2pt;}
