@@ -32,8 +32,8 @@
 \renewcommand{\section}[1]{\ifhtml\origsection{#1}\else\txtsection{#1}\fi}
 \renewcommand{\subsection}[1]{\ifhtml\origsubsection{#1}\else\txtsubsection{#1}\fi}
 %% numberless section headers, with decorative divs in html
-\renewcommand{\thesection}{\ospan{class="lbox2"}\fspan}
-\renewcommand{\thesubsection}{\ospan{class="lbox3"}\fspan}
+\renewcommand{\thesection}{\ospan{class="lbox2"} \fspan}
+\renewcommand{\thesubsection}{\ospan{class="lbox3"} \fspan}
 \usepackage{hevea}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
